@@ -1,0 +1,11 @@
+#!/usr/bin/env ash
+cd /www/omegafeeder
+
+if [ -f ./.running ]; then
+  echo "Process already running, restarting..."
+  rm .running
+  sleep 2
+fi
+
+touch .running
+$(npm run start) &

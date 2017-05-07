@@ -4,9 +4,33 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "rollup -c",
+    "ssh": "ssh root@192.168.0.102",
+    "transfer": "rsync -rpv --exclude=node_modules --exclude=src --exclude=.git . root@192.168.0.102:/www/omegafeeder/",
+    "restart_remote": "ssh root@192.168.0.102 '/www/omegafeeder/run'",
+    "deploy": "npm run build && npm run transfer && npm run restart_remote",
+    "start": "node ./build/bundle.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "bufferutil": "^3.0.0",
+    "chalk": "^1.1.3",
+    "johnny-five": "^0.10.8",
+    "nodejs-websocket": "^1.7.1",
+    "omega2-io": "0.0.6",
+    "socket.io": "^1.7.4",
+    "socket.io-client": "^1.7.4",
+    "utf-8-validate": "^3.0.1"
+  },
+  "devDependencies": {
+    "rollup": "^0.41.6",
+    "rollup-plugin-buble": "^0.15.0",
+    "rollup-plugin-commonjs": "^8.0.2",
+    "rollup-plugin-node-builtins": "^2.1.0",
+    "rollup-plugin-node-globals": "^1.1.0",
+    "rollup-plugin-node-resolve": "^3.0.0"
+  }
 }
